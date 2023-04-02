@@ -78,7 +78,31 @@ if (boxes[currentShooter].classList.contains('invader', 'shooter')) {
     Display.innerHTML = 'game over!'
 }
 
+for(let i = 0; i <alienInvaders.length; i++) {
+    if(alienInvaders[i] > (boxes.length)) {
+        Display.innerHTML = 'game over!'
+        clearInterval(invaderss)
+    }
+}
+
 }
 
 invaderss = setInterval(moveInvaders, 400)
 
+function shoot(e) {
+    let id
+    let idIndex = currentShooter
+    function moveId() {
+        box[idIndex].classList.remove('idd') 
+        idIndex-=width
+        box[idIndex].classList.add('idd')
+        
+        
+    }
+    switch(e.key) {
+        case 'ArrowUp':
+            id = setInterval(moveId, 100)
+    }
+}
+
+document.addEventListener('keydown', shoot)
