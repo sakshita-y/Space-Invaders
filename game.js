@@ -1,10 +1,12 @@
 const grid = document.querySelector('.grid')
-const Display = document.querySelector('result')
+const Display = document.querySelector('.results')
 let currentShooter = 200
 let width = 15
 let direction = 1
 let invaderss 
 let movingright = true
+let aliensremoved = []
+let scoring = 0
 for (let i = 0; i < 225; i++) {
     const box = document.createElement('div')
     grid.appendChild(box)
@@ -19,7 +21,9 @@ const alienInvaders = [
 
 function draw() {
     for(let i = 0; i < alienInvaders.length; i++) {
+        if(!aliensremoved.includes(i)) {
         boxes[alienInvaders[i]].classList.add('invader')
+        }
     }
 }
 
@@ -84,19 +88,37 @@ for(let i = 0; i <alienInvaders.length; i++) {
         clearInterval(invaderss)
     }
 }
+ 
+if (aliensremoved.length===alienInvaders.length){
+    Display.innerHTML = 'you win!'
+    clearInterval(invaderss)
+}
 
 }
 
-invaderss = setInterval(moveInvaders, 400)
+invaderss = setInterval(Invaders, 500)
 
 function shoot(e) {
     let id
     let idIndex = currentShooter
     function moveId() {
-        box[idIndex].classList.remove('idd') 
+        boxes[idIndex].classList.remove('idd') 
         idIndex-=width
-        box[idIndex].classList.add('idd')
+        boxes[idIndex].classList.add('idd')
         
+        if(boxes[idIndex].classList.contains('invader')) {
+            boxes[idIndex].classList.remove('idd') 
+            boxes[idIndex].classList.remove('invader')
+            boxes[idIndex].classList.add('blast')
+
+            setTimeout(()=> boxes[idIndex].classList.remove('blast'), 300)
+            clearInterval(id)
+
+            const alienremoved = alienInvaders.indexOf(idIndex)
+            aliensremoved.push(alienremoved)
+            scoring++
+            Display.innerHTML=scoring
+        }
         
     }
     switch(e.key) {

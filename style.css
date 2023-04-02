@@ -15,14 +15,18 @@
 
 .invader {
     background-color: pink;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .shooter {
     background-color: burlywood;
-    border-radius: 10px;
+    border-radius: 0px;
 }
 
 .idd {
     background-color: darkcyan;
+}
+
+.blast {
+    background-color: grey;
 }
